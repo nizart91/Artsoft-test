@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список книг{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Список книг</h2>
+        <a href="{{ path('create_author') }}">Добавить автора</a><br>
+        <a href="{{ path('create_book') }}">Добавить книгу</a><br>
+        <div class="table-responsive">
+            <table class="table table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Автор</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Год</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>
+                            <a href="{{ path('single_author', {'author': book.author.id}) }}">{{ book.author.name }}</a>
+                        </td>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.year }}</td>
+                        <td>{{ book.introtext }}</td>
+                        <td>
+                            <a href="{{ path('update_book', {'book': book.id}) }}">Изменить</a><br>
+                            <a href="{{ path('delete_book', {'book': book.id}) }}">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

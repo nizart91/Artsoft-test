@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Автор: {{ author.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Автор: {{ author.name }}</h2>
+        <h4>Жанр: {{ author.genre }}</h4>
+        <hr>
+        <a href="{{ path('update_author', {'author': author.id}) }}" class="btn btn-sm btn-primary">Изменить</a>
+        <a href="{{ path('delete_author', {'author': author.id}) }}" class="btn btn-sm btn-danger">Удалить</a>
+        <hr>
+        <h3>Книги</h3>
+        <div class="table-responsive">
+            <table class="table table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Год</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col" class="text-right">
+                        <a href="{{ path('create_book') }}">Добавить книгу</a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in author.books %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.year }}</td>
+                        <td>{{ book.introtext }}</td>
+                        <td class="text-right">
+                            <a href="{{ path('update_book', {'book': book.id}) }}">Изменить</a><br>
+                            <a href="{{ path('delete_book', {'book': book.id}) }}">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
